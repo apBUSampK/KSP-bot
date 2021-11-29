@@ -8,7 +8,7 @@ The project being undertaken is aimed towards creating a custom renderer using t
   <li>light</li>
   <li>shadows</li>
   <li>fractal rendering</li>
-  <li>_probably texturing_</li>
+  <li><em>probably texturing</em></li>
   <li>maybe something else!</li>
 </ul>
 
