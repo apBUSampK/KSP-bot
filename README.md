@@ -18,11 +18,11 @@ The project is created using python 3 and following modules for it:
 
 <ul>
   <li>tkinter</li>
-  <li>...</li>
+  <li>vector (based on NumPy)</li>
 </ul>
 
 ## Licensing
 
-This (still non-existent) project is licensed under the terms GNU GPL, therefore you may use it however you want, as long as you don't incorporate it in any sort of proprietary software!
+This project is licensed under the terms GNU GPL, therefore you may use it however you want, as long as you don't incorporate it in any sort of proprietary software!
 
 
