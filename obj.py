@@ -27,14 +27,12 @@ class Parallelepiped:
         q = abs(point) - self.pos
         return self.scale * length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
 
-class plane:
-    def __init__ (self, r: vector.VectorObject3D, n: vector.VectorObject3D, scale = 1, delete = False, luminosity = None):
-        self.r = r
+class Plane:
+    def __init__(self, n: vector.VectorObject3D, z, delete=False, luminosity=None):
         self.n = n
-        self.scale = scale
+        self.z = z
         self.delete = delete
         self.luminosity = luminosity
-        
-# vector r лежит в плоскости ху; vector n паралеллен оси z
+
     def dist(self, point: vector.VectorObject3D):
-        return abs((np.dot(point, self.n))/abs(self.n))
+        return point.dot(self.n)/abs(self.n) + self.z
