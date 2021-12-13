@@ -1,5 +1,4 @@
 from copy import deepcopy
-from progress.bar import ChargingBar
 from progress.spinner import Spinner
 from multiprocessing import Pool
 
@@ -9,8 +8,8 @@ from func import *
 
 ROT_SPEED = .1
 MOV_SPEED = 10
-ITERATIONS = 200
-MAX_DIST = 200
+ITERATIONS = 100
+MAX_DIST = 500
 TOLERANCE = .001
 Ox = vector.obj(x=1, y=0, z=0)
 Oy = vector.obj(x=0, y=1, z=0)
@@ -39,9 +38,8 @@ class Camera():
 
     def render_pixel(self, i, j, spinner=None):
         ray_pos = deepcopy(self.pos)
-        ray_dir_norm = get_normal(self.dir + self.left * (self.width - 2*i) / self.width * self.scale_x +\
-                                  self.up * (self.height - 2*j) / self.height * self.scale_y)
-        ray_dir = ray_dir_norm
+        ray_dir = get_normal(self.dir + self.left * (self.width - 2*i) / self.width * self.scale_x +
+                             self.up * (self.height - 2*j) / self.height * self.scale_y)
         for iter in range(ITERATIONS):
             if abs(ray_pos - self.pos) > MAX_DIST:
                 if spinner is not None:
@@ -55,13 +53,14 @@ class Camera():
         if spinner is not None:
             spinner.next()
         if self.catalogue[min_dist[1]].luminosity is not None:
-            return [i, j, 1]
+            return [i, j, [1, 1, 1]]
         else:
             brightness = 0
             for iter in self.light_src:
                 light_vec = get_normal(iter.pos - ray_pos)
                 brightness += light_vec.dot(get_normal_obj(ray_pos, self.catalogue))
-            return [i, j, brightness]
+            brightness += .6
+            return [i, j, [brightness, brightness, brightness]]
 
     def mp_render(self):
         with Pool() as p:
@@ -69,22 +68,4 @@ class Camera():
             args = [(i, j, spinner) for i in range(self.width) for j in range(self.height)]
             render_map = p.starmap(self.render_pixel, args)
             spinner.finish()
-        #scene_max_brightness = max([iter[2] for iter in render_map])
-        for iter in render_map:
-            if iter is not None:
-                render_map[render_map.index(iter)][2] = int(iter[2] * 130 + 125)
-        return render_map
-
-    def render(self):
-        bar = ChargingBar('Rendering', max=self.width * self.height)
-        render_map = []
-        for i in range(self.width):
-            for j in range(self.height):
-                render_map.append(self.render_pixel(i, j))
-                bar.next()
-        bar.finish()
-        #scene_max_brightness = max([iter[2] for iter in render_map])
-        for iter in render_map:
-            if iter[2]:
-                render_map[render_map.index(iter)][2] = int(iter[2] * 130 + 125)
-        return render_map
+        return phong_normalize(render_map)
