@@ -53,7 +53,7 @@ class Camera():
         if spinner is not None:
             spinner.next()
         if self.catalogue[min_dist[1]].luminosity is not None:
-            return [i, j, [1, 1, 1]]
+            return [i, j, [1.6, 1.6, 1.6]]
         else:
             brightness = 0
             for iter in self.light_src:
