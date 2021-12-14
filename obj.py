@@ -22,7 +22,7 @@ class Plane:
         self.luminosity = luminosity
 
     def dist(self, point: vector.VectorObject3D):
-        return point.dot(self.n)/abs(self.n) - self.z
+        return point.dot(self.n)/abs(self.n) + self.z
 
 
 class Torus:
