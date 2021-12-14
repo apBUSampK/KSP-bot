@@ -8,7 +8,7 @@ from func import *
 
 ROT_SPEED = .1
 MOV_SPEED = 10
-ITERATIONS = 20
+ITERATIONS = 100
 MAX_DIST = 500
 TOLERANCE = .001
 Ox = vector.obj(x=1, y=0, z=0)
