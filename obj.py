@@ -12,19 +12,6 @@ class Sphere:
 
     def dist(self, point: vector.VectorObject3D):
         return self.scale * (abs(self.pos - point) - self.r)
-class Parallelepiped:
-    def __init__(self, pos: vector.VectorObject3D, R: vector.VectorObject3D, scale = 1, delete = False, luminosity = None):
-        self.pos = pos
-        self.R = R
-        self.scale = scale
-        self.delete = delete
-        self.luminosity = luminosity
-
-           
-    def dist(self, point: vector.VectorObject3D):
-        s = vector.obj(x = abs( (point - self.pos).x), y = abs( (point - self.pos).y), z = abs( (point - self.pos).z) ) 
-        q = s - self.R
-        return self.scale * (  (  (max(q.x, 0))^2 + (max(q.y, 0))^2 + (max(q.z, 0))^2  )^0.5   + min(max (q.x, max(q.y , q.z ) ), 0 ) )
 
 
 class Plane:
