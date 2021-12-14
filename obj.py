@@ -13,6 +13,7 @@ class Sphere:
     def dist(self, point: vector.VectorObject3D):
         return self.scale * (abs(self.pos - point) - self.r)
 
+
 class Plane:
     def __init__(self, n: vector.VectorObject3D, z, delete=False, luminosity=None):
         self.n = n
@@ -22,7 +23,8 @@ class Plane:
 
     def dist(self, point: vector.VectorObject3D):
         return point.dot(self.n)/abs(self.n) - self.z
-    
+
+
 class Torus:
     def __init__(self, pos: vector.VectorObject3D, t: vector.VectorObject2D, scale = 1, delete = False, luminosity = None):
         self.pos = pos

@@ -8,7 +8,7 @@ from func import *
 
 ROT_SPEED = .1
 MOV_SPEED = 10
-ITERATIONS = 100
+ITERATIONS = 20
 MAX_DIST = 500
 TOLERANCE = .001
 Ox = vector.obj(x=1, y=0, z=0)
@@ -53,13 +53,12 @@ class Camera():
         if spinner is not None:
             spinner.next()
         if self.catalogue[min_dist[1]].luminosity is not None:
-            return [i, j, [1.6, 1.6, 1.6]]
+            return [i, j, [1.6 * len(self.light_src), 1.6 * len(self.light_src), 1.6 * len(self.light_src)]]
         else:
-            brightness = 0
+            brightness = .6 * len(self.light_src)
             for iter in self.light_src:
                 light_vec = get_normal(iter.pos - ray_pos)
                 brightness += light_vec.dot(get_normal_obj(ray_pos, self.catalogue))
-            brightness += .6
             return [i, j, [brightness, brightness, brightness]]
 
     def mp_render(self):
